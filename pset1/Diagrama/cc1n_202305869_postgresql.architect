@@ -6,7 +6,7 @@
   <data-source id="DS0">
    <property key="Logical" value="PlayPen Database" />
   </data-source>
- </project-data-sources>
+ </project-data-sources> 
  <source-databases>
  </source-databases>
  <target-database id="ppdb" dbcs-ref="DS0">
