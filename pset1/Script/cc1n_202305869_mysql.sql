@@ -4,13 +4,14 @@
 DROP DATABASE IF EXISTS uvv;
 DROP USER IF EXISTS 'tailon'@'localhost';
 
-   /*Criando usuario tailon, com senha 'abrantesdaponto', o banco de
-        dados 'uvv', e permitindo todos os privilégios do banco para tailon.*/
+   /*Criando usuario tailon, com senha 'abrantesdaponto'.*/
         
 CREATE USER 'tailon'@'localhost'
 IDENTIFIED BY 'abrantesdaponto';
  
-
+/* Criando o banco de dados 'uvv', e permitindo todos os privilégios 
+       do banco para tailon.*/
+       
 CREATE DATABASE uvv;
 GRANT ALL PRIVILEGES ON uvv.* TO 'tailon'@'localhost';
 FLUSH PRIVILEGES;
@@ -34,12 +35,22 @@ CREATE TABLE produtos (
                                               PRIMARY KEY (produto_id)
 );
 
+--Checando o preço unitário, para não ser negativo e ser maior que 0
+
+ALTER TABLE produtos
+ADD CONSTRAINT ck_preco_unitario_produtos
+CHECK (preco_unitario > 0);
+
+
+--Comentando a tabela "produtos"
 ALTER TABLE produtos COMMENT
 
               'A tabela "produtos" irá armazenar informações
                sobre os produtos, como identificador exclusivo,
                os preços, detalhes, imagens';
 
+
+--Aqui começarão os comentários das colunas da tabela "produtos".
 ALTER TABLE produtos MODIFY COLUMN produto_id NUMERIC(38) COMMENT
 
                    'A coluna "produto_id" tem por função identificar
@@ -98,12 +109,25 @@ CREATE TABLE lojas (
                 PRIMARY KEY (loja_id)
 );
 
+/* Checando as colunas "endereco_fisico" e "endereco_web", onde uma coluna
+precisa ser preenchida e outra não obrigatoriamente, porém não importa qual
+das colunas vai preencher ou não. */
+
+ALTER TABLE lojas
+ADD CONSTRAINT ck_endereco_fisico_web_lojas
+CHECK (endereco_fisico IS NOT NULL OR endereco_web IS NOT NULL);
+
+
+--Comentando a tabela "lojas"
 ALTER TABLE lojas COMMENT
 
           'A tabela "lojas" vai armazenar as informações da lojas,
            como nome, endereço web, fisico, latitude, longitude, logo,
            etc, a fim de ter as informações que precisem sobre cada loja.';
 
+
+
+--Aqui começarão os comentários das colunas da tabela "lojas".
 ALTER TABLE lojas MODIFY COLUMN loja_id NUMERIC(38) COMMENT
 
                 'A coluna "loja_id"  serve para identificar cada uma
@@ -165,11 +189,21 @@ CREATE TABLE estoques (
                 PRIMARY KEY (estoque_id)
 );
 
+
+/* Checando a coluna "quantidade" da tabela "estoques",
+pois não pode ser negativa e nem 0 */
+
+ALTER TABLE estoques
+ADD CONSTRAINT ck_quantidade_estoques
+CHECK (quantidade > 0);
+
+--Comentando a tabela estoques
 ALTER TABLE estoques COMMENT
 
           'A tabela "estoques" vai servir para atualizar a quantidade
           de produtos existentes em cada loja.';
 
+--Comentando as colunas de estoques
 ALTER TABLE estoques MODIFY COLUMN estoque_id NUMERIC(38) COMMENT
 
              'A coluna "estoque_id" vai servir como identificador único
@@ -200,11 +234,15 @@ CREATE TABLE clientes (
                 PRIMARY KEY (cliente_id)
 );
 
+
+--Comentando a tabela "clientes"
 ALTER TABLE clientes COMMENT
 
           'A tabela "clientes" guardará informações dos clientes,
           como identificador único de cada cliente, nome, email e telefones.';
 
+
+--Aqui começarão os comentários das colunas da tabela "clientes".
 ALTER TABLE clientes MODIFY COLUMN cliente_id NUMERIC(38) COMMENT
 
             'Coluna "cliente_id", que atribuirá um identificador único
@@ -246,6 +284,14 @@ CREATE TABLE envios (
                 PRIMARY KEY (envio_id)
 );
 
+/* Checando a coluna status, para receber somente as
+                opções: CRIADO, ENVIADO,TRANSITO ou ENTREGUE. */
+ALTER TABLE envios
+ADD CONSTRAINT ck_envios_envios
+CHECK (status in ('CRIADO', 'ENVIADO', 'TRANSITO', 'ENTREGUE'));
+
+
+--Comentando a tabela "envios"
 ALTER TABLE envios COMMENT
 
              'A tabela "envios" vai armazenar o id da loja, para saber
@@ -254,6 +300,8 @@ ALTER TABLE envios COMMENT
              entrega, e o status, que vai informar em tempo real aonde
              a mercadoria está.';
 
+
+--Aqui começarão os comentários das colunas da tabela "envios".
 ALTER TABLE envios MODIFY COLUMN envio_id NUMERIC(38) COMMENT
 
             'A coluna "envio_id" vai guardar o dado único que
@@ -288,6 +336,17 @@ CREATE TABLE pedidos (
                 PRIMARY KEY (pedido_id)
 );
 
+/*Checagem da coluna "status" da tabela "pedidos", para que no status
+   só apareça: CANCELADO, COMPLETO, ABERTO, PAGO, REEMBOLSADO
+     ou ENVIADO.*/
+
+ALTER TABLE pedidos
+ADD CONSTRAINT ck_status_pedidos
+CHECK (status in ('CANCELADO', 'COMPLETO', 'ABERTO', 'PAGO',
+'REEMBOLSADO', 'ENVIADO'));
+
+
+--Comentário sobre a tabela "pedidos".
 ALTER TABLE pedidos COMMENT
 
                 'A tabela "pedidos" vai guardar informações dos pedidos
@@ -295,6 +354,9 @@ ALTER TABLE pedidos COMMENT
                 em qual loja foi feito, como também identificar o pedido
                 e a loja.';
 
+
+
+--Aqui começarão as descrições da função de cada coluna da tabela "pedidos".
 ALTER TABLE pedidos MODIFY COLUMN pedido_id NUMERIC(38) COMMENT
 
             'O "pedido_id" vai identificar exclusivamente cada pedido,
@@ -333,11 +395,24 @@ CREATE TABLE pedidos_itens (
                 PRIMARY KEY (pedido_id, produto_id)
 );
 
+
+--Checagem da coluna quantidade, que não pode ser negativa e nem 0
+ALTER TABLE pedidos_itens
+ADD CONSTRAINT ck_preco_unitario_pedidos_itens
+CHECK (preco_unitario > 0);
+
+--Checagem da coluna quantidade, que não pode ser negativa e nem 0
+ALTER TABLE pedidos_itens
+ADD CONSTRAINT ck_quantidade_pedidos_itens
+CHECK (quantidade > 0);
+
+--Comentário sobre a tabela "pedidos_itens".
 ALTER TABLE pedidos_itens COMMENT
 
                     'A tabela "pedidos_itens" vai mostrar informações
                     sobre os itens que foram pedidos.';
 
+--Aqui começarão as descrições da função de cada coluna da tabela "pedidos_itens".
 ALTER TABLE pedidos_itens MODIFY COLUMN pedido_id NUMERIC(38) COMMENT
 
              'A coluna "pedido_id" dá uma identificação única para
@@ -369,6 +444,8 @@ ALTER TABLE pedidos_itens MODIFY COLUMN envio_id NUMERIC(38) COMMENT
                   'A coluna "envio_id" irá dar uma identificação
                   exclusiva para esse pedido.';
 
+
+--Criando os relacionamentos, utilizando FK.
 
 ALTER TABLE estoques ADD CONSTRAINT produtos_estoques_fk
 FOREIGN KEY (produto_id)
