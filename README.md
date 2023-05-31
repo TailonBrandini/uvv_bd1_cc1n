@@ -1,3 +1,7 @@
+
+
+
+
 # Design e Desenvolvimento de Bancos de Dados — PSET 1 —
 
 <h2> Universidade Vila Velha - UVV </h2>
@@ -20,3 +24,11 @@ diversos relatórios. A figura abaixo ilustra as tarefas do PSET:
 
 
 ![Captura de tela 2023-05-31 122847](https://github.com/TailonBrandini/uvv_bd1_cc1n/assets/120528969/64a765f2-dfab-48a1-a0fb-e6d14a564899)
+
+
+Documento              | Nome do Arquivo                      | Sobre
+-----------------------|------------------------------------- | -------------
+ Diagrama Architect    | [cc1n_202305869_diagrama.architect](https://github.com/TailonBrandini/uvv_bd1_cc1n/blob/main/pset1/Diagrama/cc1n_202305869_postgresql.architect)   | Visualizar o código do diagrama
+ Diagrama PDF          | [cc1n_202306033_diagrama.pdf](https://github.com/TailonBrandini/uvv_bd1_cc1n/blob/main/pset1/Diagrama/cc1n_202305869_postgresql.pdf)         | Visualizar o banco de dados criado
+ Script PSQL           | [cc1n_202306033_postgresql.sql](https://github.com/TailonBrandini/uvv_bd1_cc1n/blob/main/pset1/Script/cc1n_202305869_postgresql.sql)        | Visualizar o Script do banco de dados utilizando o SGBD PostgreSQL
+ Script MySQL          | [cc1n_202306033_mysql.sql](https://github.com/TailonBrandini/uvv_bd1_cc1n/blob/main/pset1/Script/cc1n_202305869_mysql.sql)             | Visualizar o Script do banco de dados utilizando o SBGD MySQL
