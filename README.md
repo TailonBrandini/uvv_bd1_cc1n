@@ -23,7 +23,8 @@ PostgreSQL e MariaDB, a partir de um diagrama relacional, e escrever códigos SQ
 diversos relatórios. A figura abaixo ilustra as tarefas do PSET:
 
 
-![Captura de tela 2023-05-31 122847](https://github.com/TailonBrandini/uvv_bd1_cc1n/assets/120528969/64a765f2-dfab-48a1-a0fb-e6d14a564899)
+
+![Captura de tela 2023-05-31 122847](https://github.com/TailonBrandini/uvv_bd1_cc1n/assets/120528969/3f16674f-b102-45e7-9978-e36b0906455d)
 
 
 Documento              | Nome do Arquivo                      | Sobre
